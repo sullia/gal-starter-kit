@@ -38,7 +38,4 @@ describe('It should test GAL', function() {
             highlightElements
         );
     });
-
-    // Take Screenshot after running GAL
-    gal.saveScreen(screenshotPath, "Example Page", language);
 });
