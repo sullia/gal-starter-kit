@@ -29,13 +29,7 @@ describe('It should test GAL', function() {
         browser.get(url);
 
         // Execute GAL
-        gal.runGal(
-            screenshotPath,
-            "Example Page",
-            language,
-            checkXPath,
-            checks,
-            highlightElements
-        );
+        gal.runGal(screenshotPath, "Example Page", language, checkXPath, checks, highlightElements);
+        gal.saveScreen(screenshotPath, "Example Page", language);
     });
 });

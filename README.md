@@ -1,63 +1,85 @@
-# gal-starter-kit
-Easily get started with the Globalization Automation Library.
+# Getting Started with GAL
 
-This starter kit is intended to be used with the Protractor automation framework. For more information about Protractor, 
-visit https://www.protractortest.org/#/tutorial
+## Overview
+This readme will help you get started with the Globalization Automation Library (GAL). You will learn how to use the GAL to automatically detect internationalization issues.
 
-## Installing the Globalization Automation Library (GAL)
+## Prerequisites
+You will need to install some kind of WebDriver based framework to be able to run automated tests. In this tutorial, we will be using the Protractor framework. 
 
-The Globalization Automation Library needs to be installed before running this starter kit.
+### To install Protractor (using Node Package Manager)
+```bash
+npm install -g protractor
+```
+
+Any other dependencies to run Protractor (e.g. Node.js, Java, etc.), or any IDE's to edit the code are outside the scope of this document and should already be installed.
+
+### Install the Globalization Automation Library (GAL)
 ```bash
 npm i glob-auto-library -D
 ```
 
-## Run the starter kit
-To run this starter kit, navigate to the root directory of this project and execute the following Protractor command:
+By default, the starter kit uses the Google Chrome browser. If Chrome is not already installed on your computer, please download and install it from:
+https://www.google.com/chrome/
+
+
+## Downloading the GAL Starter Kit
+Downloaded the GAL starter Kit from:
+https://github.com/sullia/gal-starter-kit
+
+Once the starter kit is downloaded, navigate to the directory where you installed it using the Terminal or Command Prompt. Ensure you have all the necessary dependencies by typing:
+```bash
+npm install
+```
+
+## Executing the GAL Starter Kit
+The starter kit can be executed by running the following command:
 ```bash
 protractor config.js
 ```
 
-## example-test.js
+### Changing the start url
+By default, the starter kit will open Chrome and navigae to http://localhost:4200/. To change the start url, open the example-test.js file in your IDE. On line 5, change the url.
 ```javascript
-// Add the Globalization Automation Library to test
-var gal = require('glob-auto-library').GalFunctions;
-
 // Change to any url
 var url = 'http://localhost:4200/';
+```
 
-// Path to where screenshots are saved. Set in config.js
-var screenshotPath = browser.params.screenshotPath;
+### Using the Globalization Test Web
+The Globalization Test Web is an Angular 7 application that can be used to test the GAL. It contains many common types of globalization defects such as truncation, corrupt characters, hardcoded strings and U.S. date formats.
 
-// Language of application being tested. Set in config.js
-var language = browser.params.lang;
+You will need to install Angular to run this application. To install the Angular CLI globally using Node.js, use the following command:
+```bash
+npm install -g @angular/cli 
+```
 
-// XPath to parent element to be tested
-var checkXPath = '/html/body';
+The Globalization Test Web can be downloaded from here:
+https://github.com/sullia/glob-test-web
 
-// Place a border around any issues found on the DOM
-var highlightElements = true;
+To run the Globalization Test Web, navigate to the directory where you installed it using the Terminal or Command Prompt and run the command:
+```bash
+ng serve --open
+```
 
-// Set which GAL checks to execute
-var checks = [];
-checks.push(gal.HardcodeCheck());       // Detects Hardcoded Text
-checks.push(gal.ClippedCheck());        // Detects Truncation/Clipped Text
-checks.push(gal.CorruptionCheck());     // Detects Corrupt Characters
-checks.push(gal.DateTimeCheck());       // Detects U.S. Date Formats
+This will launch your browser and open http://localhost:4200/ running the Globalization Test Web.
 
-// Typical Protractor Test
-describe('It should test GAL', function() {
-    it('Should run GAL on localhost', function() {
-        browser.get(url);
+### Changing Language on the GAL Starter Kit
+By default, the starter kit will run in English (en-US). To change language, open the config.js file. The language can be changed on line 1. This should be an IETF language tag, i.e. ([language]-[country]).
+```javascript
+// Change language
+var language = 'en-US';
+```
 
-        // Execute GAL
-        gal.runGal(
-            screenshotPath,
-            "Example Page",
-            language,
-            checkXPath,
-            checks,
-            highlightElements
-        );
-    });
-});
+If you are using the Globalization Test Web, the application has been localized to 3 languages:
+* en-US (the default option)
+* zh-CN (Simplified Chinese)
+* ja-JP (Japanese)
+
+### Changing the location of GAL files
+GAL generates two different kinds of files: Screenshots (PNG) and information of any issues (JSON). By default, the starter kit will save these files in a directory called "screenshots" in the root of the starter kit. To change this location, open the config.js file. The path can be changed on line 5
+```javascript
+params: {
+    // Change screenshotPath
+    screenshotPath: './screenshots/',
+    lang: language
+},
 ```
