@@ -1,35 +1,51 @@
-// Add the Globalization Automation Library to test
-var gal = require('glob-auto-library').GalFunctions;
-
-// Change to any url
 var url = 'http://localhost:4200/';
+var gal = require('./gal-settings');
 
-// Path to where screenshots are saved. Set in config.js
-var screenshotPath = browser.params.screenshotPath;
-
-// Language of application being tested. Set in config.js
-var language = browser.params.lang;
-
-// XPath to parent element to be tested
-var checkXPath = '/html/body';
-
-// Place a border around any issues found on the DOM
-var highlightElements = true;
-
-// Set which GAL checks to execute
-var checks = [];
-checks.push(gal.HardcodeCheck());       // Detects Hardcoded Text
-checks.push(gal.ClippedCheck());        // Detects Truncation/Clipped Text
-checks.push(gal.CorruptionCheck());     // Detects Corrupt Characters
-checks.push(gal.DateTimeCheck());       // Detects U.S. Date Formats
-
-// Typical Protractor Test
+// Simple Protractor Test
 describe('It should test GAL', function() {
-    it('Should run GAL on localhost', function() {
+    it('Should navigate to GAL Test Page', function() {
         browser.get(url);
+        var browser_title = browser.getTitle().then(function(webpagetitle){
+            return webpagetitle;
+        });
+        expect(browser_title).toEqual('GAL Test App');
+    });
 
-        // Execute GAL
-        gal.runGal(screenshotPath, "Example Page", language, checkXPath, checks, highlightElements);
-        gal.saveScreen(screenshotPath, "Example Page", language);
+    it('Should switch to assigned language', function() {
+        element(by.id('mnuLanguage')).click();
+        browser.sleep(1000);
+        element(by.id(browser.params.lang)).click();
+
+        gal.takeScreenshot('Home_Page', true);
+    });
+
+    it('Should navigate to the Hardcode page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[2]/div/div[1]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Hardcode_Page', true, '/html/body/app-root/div/div[2]');
+    });
+
+    it('Should navigate to the Truncation page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[2]/div/div[2]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Truncation_Page', true, '/html/body/app-root/div/div[2]');
+    });
+
+    it('Should navigate to the Corruption page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[2]/div/div[3]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Corruption_Page', true, '/html/body/app-root/div/div[2]');
+    });
+
+    it('Should navigate to the Date/Time page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[2]/div/div[4]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Date_Time_Page', true, '/html/body/app-root/div/div[2]');
+    });
+
+    it('Should navigate to the Overlapping page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[2]/div/div[5]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Overlapping_Page', true, '/html/body/app-root/div/div[2]');
+    });
+
+    it('Should navigate to the Support page', function() {
+        element(by.xpath('//*[@id="sideNav"]/vdl-scrollable-container/div[1]/div/div[3]/vdl-sidenav-item/div[2]')).click();
+        gal.takeScreenshot('Overlapping_Page');
     });
 });

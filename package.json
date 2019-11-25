@@ -1,17 +1,17 @@
 {
   "name": "gal-starter-kit",
   "config": {
-    "product": "TEST",
-    "language": "en-US",
-    "build": "1.0.1",
-    "restapi": "https://arp-demo.azurewebsites.net/"
+    "product": "TEST 1",
+    "language": "zh-CN",
+    "build": "1.1",
+    "restapi": "http://localhost:8000"
   },
   "version": "1.0.0",
   "description": "Easily get started with the Globalization Automation Library.",
   "main": "config.js",
   "scripts": {
     "test": "protractor config.js",
-    "upload": "arp-upload -p $npm_package_config_product -b $npm_package_config_build -l $npm_package_config_language -t $ARPTOKEN -r $npm_package_config_restapi -f ./screenshots/$npm_package_config_language"
+    "upload": "cross-var arp-upload -p $npm_package_config_product -b $npm_package_config_build -l $npm_package_config_language -t $ARPTOKEN -r $npm_package_config_restapi -f ./screenshots/$npm_package_config_language"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,14 @@
   "author": "Adrian O'Sullivan",
   "license": "MIT",
   "devDependencies": {
-    "glob-auto-library": "^1.1.6"
+    "arp-uploader": "^1.1.14",
+    "glob-auto-library": "^1.1.15"
   },
   "bugs": {
     "url": "https://github.com/sullia/gal-starter-kit/issues"
   },
-  "homepage": "https://github.com/sullia/gal-starter-kit#readme"
+  "homepage": "https://github.com/sullia/gal-starter-kit#readme",
+  "dependencies": {
+    "cross-var": "^1.1.0"
+  }
 }

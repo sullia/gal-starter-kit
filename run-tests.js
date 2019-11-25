@@ -1,9 +1,11 @@
-var language = 'en-US';
+var language = 'zh-CN';
 
 exports.config = {
     params: {
         screenshotPath: './screenshots/',
-        lang: language
+        lang: language,
+        galEnabled: true,
+        galHighlight: true
     },
 
     framework: 'jasmine',
@@ -11,8 +13,7 @@ exports.config = {
 
     onPrepare: function () {
         browser.ignoreSynchronization = true;
-        browser.driver.manage().window().setPosition(0, 0);
-        browser.driver.manage().window().setSize(1366, 768);
+        browser.driver.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(6000);
         browser.driver.manage().deleteAllCookies(); 
     },
