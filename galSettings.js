@@ -5,7 +5,7 @@ var screenshotPath = browser.params.screenshotPath;
 var screensourcePath = browser.params.screensourcePath;
 var galEnabled = browser.params.galEnabled;
 var galHighlight = browser.params.galHighlight;
-var whitelist = require('./whitelist');
+var allowedList = require('./allowedList');
 
 module.exports = {
     takeScreenshot: function (screenshotName, invokeGal, galLocator, galChecks) {
@@ -33,11 +33,11 @@ module.exports = {
             if (typeof (checks) === "undefined" || checks === null) {
                 checks = [];
                 if (language !== 'en-US') {
-                    checks.push(gal.HardcodeCheck(whitelist.hardcodelist()));
-                    //checks.push(gal.DateTimeCheck());
+                    checks.push(gal.HardcodeCheck(allowedList.allowedHardcoded()));
+                    checks.push(gal.DateTimeCheck());
                 }
-                //checks.push(gal.ClippedCheck()); 
-                //checks.push(gal.CorruptionCheck());
+                checks.push(gal.ClippedCheck()); 
+                checks.push(gal.CorruptionCheck(allowedList.allowedChars()));
             }
             if (Array.isArray(checks) && checks.length > 0) {
                 gal.runGal(screenshotPath, screenshotName, language, locator, checks, galHighlight);

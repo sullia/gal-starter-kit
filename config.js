@@ -1,4 +1,4 @@
-var language = 'en-US';
+var language = 'zh-CN';
 
 exports.config = {
     params: {
