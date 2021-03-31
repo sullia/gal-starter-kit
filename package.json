@@ -25,15 +25,14 @@
   ],
   "author": "Adrian O'Sullivan",
   "license": "MIT",
-  "devDependencies": {
-    "arp-uploader": "^1.1.14",
-    "glob-auto-library": "^1.1.15"
-  },
   "bugs": {
     "url": "https://github.com/sullia/gal-starter-kit/issues"
   },
   "homepage": "https://github.com/sullia/gal-starter-kit#readme",
   "dependencies": {
-    "cross-var": "^1.1.0"
+    "cross-var": "^1.1.0",
+    "protractor-beautiful-reporter": "^1.3.6",
+    "glob-auto-library": "^1.1.19",
+    "arp-uploader": "^1.1.14"
   }
 }
